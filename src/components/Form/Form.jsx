@@ -17,9 +17,9 @@ const schema = Yup.object().shape({
 });
 
 
- const Basic = ({setNewContact}) => (
-    <div>
-      <h1>Sign Up</h1>
+ const FormField = ({setNewContact}) => (
+    <div className='max-w-sm mx-auto  bg-slate-300 p-4'>
+      <h1 className='text-lg text-center pb-2 underline'>Sign Up</h1>
       <Formik
         initialValues={{
           name: '',
@@ -34,20 +34,24 @@ const schema = Yup.object().shape({
         validationSchema={schema}
      
       >
-        <Form autoComplete='off'>
-          <label htmlFor="name">First Name</label>
-          <Field id="name" name="name" />
-          <ErrorMessage name="name"  component="div"/>
-          <label htmlFor="number">Number</label>
-          <Field id="number" name="number" type="tel"  />   
-          <ErrorMessage name="number" component="div"/>
-          <button type="submit">Submit</button>
+        <Form autoComplete='off'  className='flex flex-col items-center'>
+
+          <label htmlFor="name" className='block text-center mb-2' >First Name</label>
+          <Field id="name" name="name" type="text" className="form-input px-4 py-3 rounded-full block mb-2"/>
+          <ErrorMessage name="name"  component="p" className='text-red-600 text-center'/>
+
+          <label htmlFor="number" className=''>Number</label>
+          <Field id="number" name="number" type="tel" className="form-input px-4 py-3 rounded-full block mb-2"  />  
+          <ErrorMessage name="number" component="p" className='text-red-600 text-center mb-2'/>
+
+          <button type="submit" className='bg-cyan-300  box-border block w-10 h-4 rounded-full p-2'>Submit</button>
+
         </Form>
       </Formik>
     </div>
   );
 
- export default Basic;
+ export default FormField;
 
 
 //

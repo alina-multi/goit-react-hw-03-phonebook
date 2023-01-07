@@ -1,8 +1,9 @@
 import { Component } from "react";
 // import { FormEvent } from 'react';
 import ContactList from './ContactList/ContactList';
-import Basic from './Form/Form';
+import FormField from './Form/Form';
 import Filter from "./Filter/Filter";
+
 
 
  export class App extends Component { 
@@ -13,8 +14,27 @@ import Filter from "./Filter/Filter";
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
   ],
-  filter: '',
+  filter: ''
   
+ }
+
+ componentDidMount (){
+
+  const contacts = localStorage.getItem("contacts")
+ 
+  if (contacts!== null){
+  this.setState({
+    contacts: [...JSON.parse(contacts)]
+  })
+ 
+  } }
+
+ componentDidUpdate (_, prevState) {
+  if(prevState !== this.state.contacts) {
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+  }
+  
+
  }
 
  setNewContact = (newContact)=>{
@@ -40,7 +60,6 @@ import Filter from "./Filter/Filter";
      );    
    }
 
-
    handleFilter = (e) => { 
     const { value, name } = e.currentTarget;
     this.setState(
@@ -65,13 +84,16 @@ import Filter from "./Filter/Filter";
    
    }
 
-
-
   render() { 
-    return <div>
-      <Basic setNewContact={this.setNewContact}/>
+    return <div className="container mx-auto px-2">
+       
+       <FormField setNewContact={this.setNewContact} />
+       
+      <div className="box-border">
       <Filter contacts={this.state.contacts} filter={this.state.filter} onChange={this.handleFilter}/>
       <ContactList visibleContacts={this.contactsFilter} onDeleteButton={this.onDeleteButton}/>
+</div>
+     
     </div> 
   }
    
